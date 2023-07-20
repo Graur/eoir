@@ -1,0 +1,16 @@
+name: releases
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  check-releases:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+        run: |
+          echo "is_exist=$(git ls-remote --exit-code --heads origin update-test || "false")" >> "$GITHUB_ENV"
+          echo "env.is_exist: ${{ env.is_exist }}"
+
